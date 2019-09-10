@@ -1,6 +1,11 @@
 import random
 
-def print_random_team(classes):
+def print_random_team(classes: dict):
+    """
+    Picks a random class and picks a random member in that class. 
+
+    :param dict classes: Key of class name, value of list of members in the class
+    """
     class_names = list(classes.keys())
     class_name = class_names[random.randint(0, len(class_names) - 1)]
     members = classes[class_name]
