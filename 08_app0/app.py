@@ -21,5 +21,6 @@ def hide_and_seek():
 
 
 if __name__ == "__main__":
-        app.debug = True
-        app.run()
+    # app.debug will not work if you run using an IDE. It must be run in your terminal    
+    app.debug = True
+    app.run()
