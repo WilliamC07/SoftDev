@@ -15,12 +15,12 @@ app = Flask(__name__) #create instance of class Flask
 def hello_world():
     print(request)
     print(request.args)
-    return render_template("index.html")
+    return render_template("index.html", login_info=request.args)
+
 
 @app.route('/')
 def index():
-    return "No Hablo Queso!"
-
+    return render_template("landing.html")
 
 
 if __name__ == "__main__":
