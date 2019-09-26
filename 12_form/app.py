@@ -8,13 +8,14 @@ from flask import Flask
 from flask import render_template
 from flask import request
 
+app = Flask(__name__)
 
-app = Flask(__name__) #create instance of class Flask
 
 @app.route("/auth")
 def authentication(): 
     """
-    This only accepts GET requests
+    Handles:
+    GET
     """
     print("\n" + "BODY OF REQUEST >>>" + str(request))
     print("REQUEST ARGS >>>" + str(request.args) + "\n")
