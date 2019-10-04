@@ -1,0 +1,23 @@
+{% extends "standard.html" %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block header %}
+    <h1>Log into the website</h1>
+{% endblock %}
+
+{% block body %}
+    <h3>Hint: Username is "user" and Password is "pass"</h3>
+    <h3>Your password field will not be covered up!!!</h3>
+    <form method="GET">
+        <label>Username</label>
+        <input type="text" name="username">
+        <br>
+        <label>Password</label>
+        <input type="text" name="password">
+        <br>
+        <input type="submit" value="submit">
+    </form>
+{% endblock %}

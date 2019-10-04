@@ -1,0 +1,17 @@
+{% extends "standard.html" %}
+
+{% block title %}
+    Welcome!
+{% endblock %}
+
+{% block header %}
+    <h1>Welcome to our amazing website!!!</h1>
+{% endblock %}
+
+{% block body %}
+    <h3>You have successfully logged in!!! Enjoy your stay.</h3>
+    <h3>Feel free to look around, or log out</h3>
+    <form action="/logout" method="GET">
+        <input type="submit" value="log out">
+    </form>
+{% endblock %}

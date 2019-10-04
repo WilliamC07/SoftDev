@@ -1,0 +1,18 @@
+{% extends "standard.html" %}
+
+{% block title %}
+    Error!
+{% endblock %}
+
+{% block header %}
+    <h1>You failed to log in</h1>
+{% endblock %}
+
+{% block body %}
+    <h3>Please correct the following mistakes:</h3>
+    <ul>
+        {% for error_message in errors %}
+        <li> {{ error_message }} </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

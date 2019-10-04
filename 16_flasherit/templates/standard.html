@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}STANDARD TITLE CHANGE{% endblock %}</title>
+    </head>
+    <body>
+        {% block header %}
+            THIS IS THE STANDARD HEADER
+        {% endblock %}
+        <hr>
+        {% block body %}
+            THIS IS THE BODY
+        {% endblock %}
+        <hr>
+        {% block footer %}
+            <footer>
+                <h5>Page created by ©Team Ethilliam</h5>
+                <h5>Members: </h5>
+                <ul>
+                    <li>Ethan Chen</li>
+                    <li>William Cao</li>
+                </ul>
+                <h6>Finished on Oct 3rd 2019</h6>
+            </footer>
+        {% endblock %}
+    </body>
+</html>
