@@ -1,3 +1,8 @@
+# Ethan Chen William Cao (Team Ethilliam)
+# SoftDev1 pd2
+# K15 -- Do I know You?
+# 2019-10-04
+
 import os
 
 from flask import Flask
