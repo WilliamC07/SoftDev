@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Error!</title>
+    </head>
+    <body>
+        <h1>You failed to log in</h1>
+        <h3>Please correct the following mistakes:</h3>
+        <ul>
+            {% for error_message in errors %}
+            <li> {{ error_message }} </li>
+            {% endfor %}
+        </ul>
+    </body>
+</html>
