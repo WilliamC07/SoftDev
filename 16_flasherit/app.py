@@ -1,7 +1,7 @@
 # Ethan Chen William Cao (Team Ethilliam)
 # SoftDev1 pd2
 # K16 -- Oh yes, perhaps I do...
-# 2019-10-04
+# 2019-10-07
 
 import os
 
@@ -11,6 +11,7 @@ from flask import render_template
 from flask import redirect
 from flask import url_for
 from flask import request
+from flask import flash
 
 
 app = Flask(__name__)
@@ -24,7 +25,7 @@ app.secret_key = secret
 def credentials_middleware(username, password):
     """
     Will attempt to login the user with the given credentials.
-    Returns view to welcome page if credentials are correct; error page otherwise
+    Returns view to welcome page if credentials are correct; flash errors otherwise
     :param username:
     :param password:
     """
@@ -37,7 +38,9 @@ def credentials_middleware(username, password):
         errors.append("Incorrect Password")
 
     if len(errors):
-        return render_template("error.html", errors=errors)
+        for error in errors:
+            flash(error)
+        return render_template("login.html")
     else:
         session['username'] = username
         print("\n\nCurrent session: {}".format(str(session)))
