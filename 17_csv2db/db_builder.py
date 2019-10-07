@@ -1,5 +1,5 @@
 #Clyde "Thluffy" Sinclair
-#SoftDev  
+#SoftDev
 #skeleton :: SQLITE3 BASICS
 #Oct 2019
 
@@ -12,15 +12,16 @@ DB_FILE="discobandit.db"
 db = sqlite3.connect(DB_FILE) #open if file exists, otherwise create
 c = db.cursor()               #facilitate db ops
 
-#==========================================================
 
-# < < < INSERT YOUR POPULATE-THE-DB CODE HERE > > >
-
-
-command = ""          # test SQL stmt in sqlite3 shell, save as string
-c.execute(command)    # run SQL statement
-
-#==========================================================
+# Handle students.csv
+db.execute("CREATE TABLE IF NOT EXISTS students (name STRING, age INTERGER, id INTERGER PRIMARY KEY);")
+with open("./data/students.csv") as csv_file:
+    reader = csv.DictReader(csv_file)
+    for row in reader:
+        name = row['name']
+        age = int(row['age'])
+        student_id = int(row['id'])
+        db.execute("INSERT INTO students (name, age, id) VALUES ('{}', {}, {});".format(name, age, student_id))
 
 db.commit() #save changes
 db.close()  #close database
