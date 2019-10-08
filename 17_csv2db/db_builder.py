@@ -13,15 +13,24 @@ db = sqlite3.connect(DB_FILE) #open if file exists, otherwise create
 c = db.cursor()               #facilitate db ops
 
 
-# Handle students.csv
+def put_data_in(file_path: str, table_name):
+    """
+    Reads a csv file with three columns and enters into a table. Table must exist already
+
+    :param file_path: Path to csv file to enter data in. The csv should only have 3 columns
+    :param table_name: Name of table
+    """
+    with open(file_path) as csv_file:
+        reader = csv.DictReader(csv_file)
+        for row in reader:
+            values = list(row.values())
+            db.execute("INSERT INTO {} VALUES ('{}', {}, {});".format(table_name, *values))
+
+
 db.execute("CREATE TABLE IF NOT EXISTS students (name STRING, age INTERGER, id INTERGER PRIMARY KEY);")
-with open("./data/students.csv") as csv_file:
-    reader = csv.DictReader(csv_file)
-    for row in reader:
-        name = row['name']
-        age = int(row['age'])
-        student_id = int(row['id'])
-        db.execute("INSERT INTO students (name, age, id) VALUES ('{}', {}, {});".format(name, age, student_id))
+put_data_in("./data/students.csv", "students")
+db.execute("CREATE TABLE IF NOT EXISTS courses (code STRING, mark INTERGER, id INTERGER);")
+put_data_in("./data/courses.csv", "courses")
 
 db.commit() #save changes
 db.close()  #close database
