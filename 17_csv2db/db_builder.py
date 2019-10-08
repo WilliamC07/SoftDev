@@ -1,7 +1,10 @@
-#Clyde "Thluffy" Sinclair
-#SoftDev
-#skeleton :: SQLITE3 BASICS
-#Oct 2019
+# Mohidul Abedin; William Cao; Team Mo Goes Cow
+
+# SoftDev1 pd2
+
+# K17 -- No Trouble
+
+# 2019-10-10
 
 import sqlite3   #enable control of an sqlite database
 import csv       #facilitate CSV I/O
