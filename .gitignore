@@ -9,6 +9,11 @@ _*
 .Spotlight*
 .Trashes
 
+# DB
+*.db
+*.sqlite
+*.sqlite3
+
 # Environments
 .env
 .venv
