@@ -3,20 +3,16 @@
 #K18 - Average
 # 2019-10-10
 
-import sqlite3   #enable control of an sqlite database
-import csv       #facilitate CSV I/O
-
+import sqlite3
+import csv
+from collections import namedtuple
 
 DB_FILE="discobandit.db"
+db = sqlite3.connect(DB_FILE)
+c = db.cursor()
 
-db = sqlite3.connect(DB_FILE) #open if file exists, otherwise create
-c = db.cursor()               #facilitate db ops
 
-course_code = input("Enter course code: ")
-course_mark = input("Enter mark: ")
-course_id = input("Enter id: ")
-
-def put_data_in(file_path: str, table_name):
+def read_csv_to_database(file_path: str, table_name):
     """
     Reads a csv file with three columns and enters into a table. Table must exist already
     :param file_path: Path to csv file to enter data in. The csv should only have 3 columns
@@ -29,35 +25,73 @@ def put_data_in(file_path: str, table_name):
             c.execute("INSERT INTO {} VALUES ('{}', {}, {});".format(table_name, *values))
 
 
-c.execute("CREATE TABLE IF NOT EXISTS students (name STRING, age INTERGER, id INTERGER PRIMARY KEY);")
-put_data_in("./data/students.csv", "students")
-c.execute("CREATE TABLE IF NOT EXISTS courses (code STRING, mark INTERGER, id INTERGER);")
-put_data_in("./data/courses.csv", "courses")
-c.execute("INSERT INTO courses VALUES ('{}', {}, {})".format(course_code, course_mark, course_id))
+def create_tables():
+    c.execute("CREATE TABLE IF NOT EXISTS students (name STRING, age INTERGER, id INTERGER PRIMARY KEY);")
+    read_csv_to_database("./data/students.csv", "students")
 
-c.execute("CREATE TABLE IF NOT EXISTS stu_avg (name STRING, id INTEGER, ave INTEGER);")
+    c.execute("CREATE TABLE IF NOT EXISTS courses (code STRING, mark INTERGER, id INTERGER);")
+    read_csv_to_database("./data/courses.csv", "courses")
 
-query = """
-SELECT name, students.id, mark
-FROM students, courses
-WHERE students.id = courses.id;
-"""
-result = c.execute(query)
+    c.execute("CREATE TABLE IF NOT EXISTS stu_avg (id INTEGER, average REAL);")
 
-dict = {}
 
-for name, id, mark in result:
-    if (name not in dict):
-        dict[name] = [int(id), int(mark), 1]
-    else:
-        dict[name] = [dict[name][0], dict[name][1] + int(mark), dict[name][2] + 1]
+def get_students_grades():
+    query = """
+    SELECT name, students.id, mark
+    FROM students, courses
+    WHERE students.id = courses.id;
+    """
+    query_results = c.execute(query)
 
-for row in dict:
-    c.execute("INSERT INTO stu_avg VALUES(\"{}\", {}, {});".format(row, dict[row][0], dict[row][1]/dict[row][2]))
+    Student = namedtuple("Student", ["name", "grades"])
+    # Key: Student ID Value: Student Tuple
+    students = {}
 
-table = c.execute("SELECT * FROM stu_avg")
-for row in table:
-    print(row)
+    # Use id for dictionary keys since it is guaranteed to be unique
+    for name, id, mark in query_results:
+        if id not in students:
+            students[id] = Student(name, [mark])
+        else:
+            students[id].grades.append(mark)
+
+    return students
+
+
+def generate_and_store_averages():
+    students = get_students_grades()
+    # Calculate and store average
+    for student_id in students.keys():
+        student = students[student_id]
+        average = sum(student.grades) / len(student.grades)
+        c.execute("INSERT INTO stu_avg VALUES('{}', {});".format(student_id, average))
+
+
+def print_averages():
+    query = """
+    SELECT name, stu_avg.id, average
+    FROM students, stu_avg
+    WHERE students.id = stu_avg.id
+    """
+    result = c.execute(query)
+    for name, id, average in result:
+        print("Name: {} (id: {}) Average: {}".format(name, id, average))
+
+
+def look_up_grade(id):
+    query = """
+    SELECT name, students.id, code, mark
+    FROM students, courses
+    WHERE students.id = courses.id;
+    """
+    result = c.execute(query)
+    for name, student_id, course_name, mark in result:
+        if student_id == id:
+            print("Student: {} (id {}) \t Course: {} \t Grade: {}".format(name, student_id, course_name, mark))
+
+create_tables()
+generate_and_store_averages()
+print_averages()
+look_up_grade(1)
 
 db.commit() #save changes
 db.close()  #close database
