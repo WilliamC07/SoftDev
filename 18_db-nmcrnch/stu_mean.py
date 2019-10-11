@@ -88,6 +88,14 @@ def look_up_grade(id):
         if student_id == id:
             print("Student: {} (id {}) \t Course: {} \t Grade: {}".format(name, student_id, course_name, mark))
 
+
+def add_grade():
+    c.execute("INSERT INTO courses VALUES ('{}', {}, {})".format(
+        input("Enter course code: "),
+        input("Enter mark: "),
+        input("Enter id: ")))
+
+
 create_tables()
 generate_and_store_averages()
 print_averages()
