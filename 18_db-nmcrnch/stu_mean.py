@@ -78,6 +78,7 @@ def print_averages():
 
 
 def look_up_grade(id):
+    print("Looking up grade for {}: \n".format(id))
     query = """
     SELECT name, students.id, code, mark
     FROM students, courses
@@ -92,14 +93,16 @@ def look_up_grade(id):
 def add_grade():
     c.execute("INSERT INTO courses VALUES ('{}', {}, {})".format(
         input("Enter course code: "),
-        input("Enter mark: "),
-        input("Enter id: ")))
+        int(input("Enter mark: ")),
+        int(input("Enter id: "))))
 
 
 create_tables()
+# add_grade()
 generate_and_store_averages()
 print_averages()
 look_up_grade(1)
+# look_up_grade(int(input("Student's grade to look at: ")))
 
-db.commit() #save changes
-db.close()  #close database
+db.commit()
+db.close()
