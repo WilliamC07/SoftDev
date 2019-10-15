@@ -3,14 +3,14 @@
 #K18 - Average
 # 2019-10-10
 
-import sqlite3
-import csv
+import sqlite3   #enable control of an sqlite database
+import csv       #facilitate CSV I/O
 from collections import namedtuple
 
 DB_FILE="discobandit.db"
-db = sqlite3.connect(DB_FILE)
-c = db.cursor()
 
+db = sqlite3.connect(DB_FILE) #open if file exists, otherwise create
+c = db.cursor()               #facilitate db ops
 
 def read_csv_to_database(file_path: str, table_name):
     """
@@ -98,17 +98,51 @@ We will check:
 """
 def is_number(value):
     try:
-        int(s)
+        int(value)
         return True
     except ValueError:
         return False
+
+def ids():
+    list = []
+    for row in c.execute("SELECT id FROM students"):
+        list.append(row[0])
+    return list
+
+def add_grade():
+    valid = False
+    code = input("Enter course code: ")
+    while(not valid):
+        if (not code or "'" in code):
+            # Basic check for sql injection
+            code = input("Enter course code without single quotes:")
+        else:
+            valid = True
+
+    valid = False
+    mark = input("Enter mark: ")
+    while (not valid):
+        if (not is_number(mark)):
+            mark = input("Please enter a valid mark: ")
+        else:
+            valid = True
+
+    valid = False
+    id = input("Enter id: ")
+    while (not valid):
+        if (not is_number(id) or (not int(id) in ids())):
+            id = input("Please enter a valid id: ")
+        else:
+            valid = True
+    c.execute("INSERT INTO courses VALUES ('{}', {}, {})".format(code, int(mark), int(id)))
+
 
 create_tables()
 add_grade()
 generate_and_store_averages()
 print_averages()
 look_up_grade(1)
-look_up_grade(int(input("Student's grade to look at: ")))
+# look_up_grade(int(input("Student's grade to look at: ")))
 
 db.commit()
 db.close()
