@@ -1,9 +1,9 @@
-html{
+html {
     background: rgb(102, 102, 102);
-    font-family: Arial;
+    font-family: "arial", "times";
 }
 
-h1{
+h1 {
     background: rgb(189, 189, 189);
     color: #fff;
     text-align: center;
@@ -31,10 +31,10 @@ nav ul {
 a {
     color: rgb(209, 210, 208);
     text-decoration: none;
-
+    font-weight: bold; /* The font weight looks fatter on the picture, but I can't really tell*/
 }
 
-footer{
+footer {
     background: rgb(87, 87, 87);
     text-align: right;
     color: rgb(109, 112, 109);
