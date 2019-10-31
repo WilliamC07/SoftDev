@@ -1,0 +1,43 @@
+html{
+    background: rgb(102, 102, 102);
+    font-family: Arial;
+}
+
+h1{
+    background: rgb(189, 189, 189);
+    color: #fff;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 200px auto;
+    background: rgb(117, 117, 117);
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+nav {
+    padding-left: 15px;
+}
+
+nav ul {
+    padding-left: 0;
+    list-style-type: none;
+}
+
+a {
+    color: rgb(209, 210, 208);
+    text-decoration: none;
+
+}
+
+footer{
+    background: rgb(87, 87, 87);
+    text-align: right;
+    color: rgb(109, 112, 109);
+    font-size: 16px;
+    padding: 10px 10px 10px 10px;
+}
