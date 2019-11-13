@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Currency!</title>
+    </head>
+    <body>
+        <h1>How much is 50 dollars worth in other currency</h1>
+        <h1>Accurate as of {{ timestamp }}</h1>
+        {% for currency, exchange_rate in exchange_rates %}
+            <h1>In {{ currency }} it is {{ exchange_rate * 50 }}</h1>
+        {% endfor %}
+    </body>
+</html>
