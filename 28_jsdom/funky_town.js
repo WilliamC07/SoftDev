@@ -1,17 +1,31 @@
-document.getElementById("fib").addEventListener("click", () => console.log(fibonacci(5)))
-document.getElementById("gcd").addEventListener("click", () => console.log(gcd(204, 44)))
-document.getElementById("randomStudent").addEventListener("click", () => console.log(randomStudent()))
+document.getElementById("fib").addEventListener("click", (event) => handle_click(event, fibonacci(5)));
+document.getElementById("gcd").addEventListener("click", (event) => handle_click(event, gcd(204, 44)));
+document.getElementById("randomStudent").addEventListener("click", (e) => handle_click(event, randomStudent()));
+
+var handle_click = (event, answer) => {
+    // https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentElement
+    // https://developer.mozilla.org/en-US/docs/Web/API/EventListener
+    var answer_display = document.createElement("p");
+    answer_display.innerHTML = "The answer is " + answer;
+    event.target.insertAdjacentElement('afterend', answer_display);
+}
 
 var fibonacci = function(n) {
-    if (n == 0) {
-        return 0;
-    }
-    else {
-        if (n == 1 || n == 2) {
-            return 1;
+    var compute = (n) => {
+        if (n == 0) {
+            return 0;
         }
+        else {
+            if (n == 1 || n == 2) {
+                return 1;
+            }
+        }
+        return compute(n-2) + compute(n-1);
     }
-    return fibonacci(n-2) + fibonacci(n-1);
+
+    var answer = compute(n);
+    console.log("The sequence value is ", answer);
+    return answer;
 }
 
 var gcd = (a, b) => {
@@ -21,11 +35,14 @@ var gcd = (a, b) => {
             greatest = i;
         }
     }
+    console.log(`The greatest common factor of ${a} and ${b} is ${greatest}`);
     return greatest;
 
 }
 
 var students = ["Dub Cao", "Coyote", "Matthew", "Blobfish"]
 var randomStudent = function() {
-    return students[parseInt(Math.random() * students.length)];
+    var student = students[parseInt(Math.random() * students.length)];
+    console.log("Randomly selected student:", student);
+    return student;
 }
