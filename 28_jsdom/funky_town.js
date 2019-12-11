@@ -1,3 +1,8 @@
+// Mohidul Abedin, William Cao
+// SoftDev1 pd2
+// K28 -- Sequential Progression II: Electric Boogaloo
+// 2019-12-12
+
 document.getElementById("fib").addEventListener("click", (event) => handle_click(event, fibonacci(5)));
 document.getElementById("gcd").addEventListener("click", (event) => handle_click(event, gcd(204, 44)));
 document.getElementById("randomStudent").addEventListener("click", (e) => handle_click(event, randomStudent()));

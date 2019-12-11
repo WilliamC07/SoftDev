@@ -1,3 +1,8 @@
+// Matthew Chen, William Cao
+// SoftDev1 pd2
+// K27 -- Sequential Progression
+// 2019-12-11
+
 var fibonacci = function(n) {
     if (n == 0) {
         return 0;
