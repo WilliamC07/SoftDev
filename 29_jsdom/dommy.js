@@ -1,74 +1,72 @@
 // William Cao and Joseph Yusufov
 // SoftDev pd2
 // K29 -- Sequential Progression III: Season of the Witch
-// 2019-12-13
-var changeHeading = function (e) {
-    var h = document.getElementById("h");
-    h.innerHTML = e.target.innerHTML;
-};
+// 2019-12-16
 
-var removeItem = function (e) {
-    e.target.remove();
-};
+/**
+ * @param e {Event} (First parameter given from EventTarget.addEventListener)
+ */
+const changeHeading = (e) => document.getElementById("h").innerHTML = e.target.innerHTML;
 
-var lis = document.getElementsByTagName("li");
+/**
+ * @param e {Event} (First parameter given from EventTarget.addEventListener)
+ */
+const removeItem = (e) => e.target.remove();
 
-var handleListEvent = (node) => {
+const handleListEvent = (node) => {
     node.addEventListener('mouseover', changeHeading);
     node.addEventListener('mouseout', () => document.getElementById("h").innerHTML = "Hello World!");
     node.addEventListener('click', removeItem);
 };
 
-for (var i = 0; i < lis.length; i++) {
-    handleListEvent(lis[i]);
-}
-
-var addItem = function (e) {
-    var list = document.getElementById("thelist");
-    var item = document.createElement("li");
+Array.from(document.getElementsByTagName("li"))
+    .filter((item) => item.parentNode.id === "thelist")
+    .forEach(handleListEvent);
+/**
+ * @param e {Event} (First parameter given from EventTarget.addEventListener)
+ */
+const addItem = function (e) {
+    const list = document.getElementById("thelist");
+    const item = document.createElement("li");
     item.innerHTML = "WORD";
     handleListEvent(item);
     list.appendChild(item);
 };
 
-var button = document.getElementById("b");
+const button = document.getElementById("b");
 button.addEventListener('click', addItem);
 
-var fib = function (n) {
-    if (n < 2) {
-        return 1;
-    } else {
-        return fib(n - 1) + fib(n - 2);
-    }
+const fib = function (n) {
+    return n < 2 ?
+        1 :
+        fib(n - 1) + fib(n - 2);
 };
 
-var addFib = function (e) {
-    // console.log(e);
-    var list = document.getElementById("fiblist");
-    var children = list.childNodes;
-    var item = document.createElement("li");
-    item.innerHTML = fib(children.length - 1); // Minus one because every element has one child.
+const addFib = () => {
+    const list = document.getElementById("fiblist");
+    const children = list.childNodes;
+    const item = document.createElement("li");
+    item.innerHTML = fib(children.length - 1); // Minus one because every element has one child for text element
     list.appendChild(item);
 };
 
 /**
  * Optimized fib (dynamic programming)
- * @param e
  */
-var addFib2 = function (e) {
-    // console.log(e);
-    var list = document.getElementById("fiblist");
-    var children = list.childNodes;
-    var item = document.createElement("li");
-    var length = children.length;
+const addFib2 = () => {
+    const fibList = document.getElementById("fiblist");
+    const calculatedFibValues = fibList.childNodes;
+    const nextFibItem = document.createElement("li");
+    // length is always greater than 1 (from a text node automatically placed by browser)
+    const length = calculatedFibValues.length;
 
-    if (length > 2) {
-        item.innerHTML = parseInt(children[length - 2].innerHTML) + parseInt(children[length - 1].innerHTML); // Minus one because every element has one child.
-    } else {
-        item.innerHTML = "1"; // Minus one because every element has one child.
-    }
-    list.appendChild(item);
+    // If we are given 2 fib numbers already, we can calculate by just adding the last two numbers
+    nextFibItem.innerHTML = length > 2 ?
+        nextFibItem.innerHTML = parseInt(calculatedFibValues[length - 2].innerHTML) + parseInt(calculatedFibValues[length - 1].innerHTML) :
+        "1";
+
+    fibList.appendChild(nextFibItem);
 };
 
-var fb = document.getElementById("fb");
+const fb = document.getElementById("fb");
 fb.addEventListener("click", addFib2);
