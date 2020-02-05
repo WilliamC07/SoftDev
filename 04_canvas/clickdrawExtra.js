@@ -26,15 +26,20 @@ document.getElementById("switch").addEventListener("click", () => {
 c.addEventListener("click", (e) => {
     var x = e.pageX - c.offsetLeft;
     var y = e.pageY - c.offsetTop;
+    drawingInstructions.push(x);
+    drawingInstructions.push(y);
+
     // console.log('clicked');
     if(mode === "rectangle"){
-        ctx.fillStyle = "red";
-        ctx.fillRect(x, y, 50, 100);
+        if(drawingInstructions.length === 4){
+            ctx.fillStyle = "#ff0000";
+            let xPos = drawingInstructions.shift();
+            let yPos = drawingInstructions.shift();
+            let width = drawingInstructions.shift() - xPos;
+            let height = drawingInstructions.shift() - yPos;
+            ctx.fillRect(xPos, yPos, width, height);
+        }
     }else{
-        ctx.beginPath();
-        ctx.arc(x, y, 5, 0, 2 * Math.PI);
-        ctx.stroke();
-        ctx.fillStyle = "blue";
-        ctx.fill();
+        ctx.fillRect(drawingInstructions.shift(), drawingInstructions.shift(), 3, 3);
     }
-})
+});
