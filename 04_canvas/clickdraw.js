@@ -7,7 +7,6 @@ var c = document.getElementById("slate")
 var ctx = c.getContext("2d");
 var mode = "rectangle"; // "rectangle" or "dot"
 var modeDisplay = document.getElementById("modeDisplay");
-var drawingInstructions = [];
 
 document.getElementById("clear").addEventListener("click", () => {
     ctx.fillStyle = "#fff";
@@ -37,4 +36,4 @@ c.addEventListener("click", (e) => {
         ctx.fillStyle = "blue";
         ctx.fill();
     }
-})
+});
