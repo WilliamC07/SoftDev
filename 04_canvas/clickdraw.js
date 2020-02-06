@@ -24,8 +24,8 @@ document.getElementById("switch").addEventListener("click", () => {
 });
 
 c.addEventListener("click", (e) => {
-    var x = e.pageX - c.offsetLeft;
-    var y = e.pageY - c.offsetTop;
+    var x = e.offsetX;
+    var y = e.offsetY;
     // console.log('clicked');
     if(mode === "rectangle"){
         ctx.fillStyle = "red";
