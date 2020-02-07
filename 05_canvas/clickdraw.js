@@ -1,7 +1,7 @@
-// The Cows -- Tiffany Cao and William Cao
+// William Cao & Clment Chen
 // SoftDev1 pd1
-// K04 -- I See a Red Door...
-// 2020-02-05
+// K05 -- ...and I want to Paint it Better
+// 2020-02-07
 
 var c = document.getElementById("slate")
 var ctx = c.getContext("2d");
