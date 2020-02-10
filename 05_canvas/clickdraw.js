@@ -1,4 +1,4 @@
-// William Cao & Clment Chen
+// William Cao & Clment Chan
 // SoftDev1 pd1
 // K05 -- ...and I want to Paint it Better
 // 2020-02-07
