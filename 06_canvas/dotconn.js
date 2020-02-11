@@ -6,15 +6,17 @@
  */
 const canvas = document.getElementById("playground");
 const context = canvas.getContext("2d");
+let previousPoint = undefined; // [x, y]
 
 // can clear canvas
 document.getElementById("clear").addEventListener("click", () => {
     context.fillStyle = "white";
     context.fillRect(0, 0, canvas.width, canvas.height);
+    // Do not continue drawing line off of what was clicked before clear
+    previousPoint = undefined;
 });
 
 // can draw dots and connect previous
-let previousPoint = undefined; // [x, y]
 canvas.addEventListener("click", (e) => {
     const clickedPoint = [e.offsetX, e.offsetY];
     // draw a point for where the user clicked
