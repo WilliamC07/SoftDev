@@ -1,5 +1,5 @@
 /*
- * William Cao
+ * William Cao & Ethan Chen
  * SoftDev1 pd1
  * K06 -- Dot Dot Dot
  * 2020-02-11
