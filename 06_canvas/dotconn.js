@@ -21,7 +21,11 @@ canvas.addEventListener("click", (e) => {
     const clickedPoint = [e.offsetX, e.offsetY];
     // draw a point for where the user clicked
     context.fillStyle = "blue";
-    context.fillRect(...clickedPoint, 5, 5);
+    context.fillStyle = "blue";
+    context.beginPath();
+    context.arc(...clickedPoint, 5, 0, 2 * Math.PI);
+    context.stroke();
+    context.fill();
     // connect to previous point if one exists
     if(previousPoint != undefined){
         // there is a previous point
