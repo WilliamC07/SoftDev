@@ -1,4 +1,4 @@
-// Eric Lau William Cao
+// "ERIC EATS COWS" Eric Lau & William Cao
 // SoftDev1 pd1
 // K #07: They lock us in the tower whenever we get caught
 // 2020-02-12
