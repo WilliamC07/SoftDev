@@ -36,11 +36,19 @@ const drawCircle = (radius) => {
 };
 
 const drawMovie = (x, y) => {
+    if(animationMode !== "m"){
+        return;
+    }
+
     context.clearRect(0, 0, 400, 400);
     context.drawImage(movieLogo, x, y, movieWidth, movieHeight);
 };
 
 const animateCircle = () => {
+    if(animationMode !== "c"){
+        return;
+    }
+
     animationTime++;
 
     let radius = (animationTime) % 400;
@@ -58,19 +66,20 @@ const animateMovie = () => {
     animationID = window.requestAnimationFrame(animateMovie);
 };
 
-const stop = () => {
+stopButton.addEventListener('click', () => {
     window.cancelAnimationFrame(animationID);
     animationMode = "";
-};
+});
 
-stopButton.addEventListener('click', stop);
 animateCircleButton.addEventListener('click', () => {
     if(animationMode !== "c"){
         animationID = window.requestAnimationFrame(animateCircle);
         animationMode = "c";
     }
 });
+
 animateMovieButton.addEventListener('click', () => {
     stop();
+    animationMode = "m";
     animationID = window.requestAnimationFrame(animateMovie);
 });
