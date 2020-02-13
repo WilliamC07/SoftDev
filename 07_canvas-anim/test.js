@@ -21,6 +21,7 @@ let isAnimationRunning = false;
 let animationID;
 
 const drawCircle = (radius) => {
+    context.fillStyle = "#D8E4FF";
     context.beginPath();
     context.arc(200, 200, radius, 0, 2 * Math.PI);
     context.closePath();
