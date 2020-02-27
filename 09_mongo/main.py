@@ -82,7 +82,6 @@ def restaurants_with_improving_score():
     restaurants = []
     for restaurant in collection.find():
         previous = -1
-        print(restaurant)
         for grade in restaurant["grades"]:
             score = grade["score"]
             if score is not None and score < previous:
