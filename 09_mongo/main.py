@@ -49,14 +49,27 @@ def print_header(header: str):
 
 
 def restaurants_in_borough(borough: str):
+    """
+    :param borough: Borough of the restaurant
+    :return: List of all the restuarants in the given borough
+    """
     return list(collection.find({"borough": borough.capitalize()}))
 
 
 def restaurants_in_zip_code(code: str):
+    """
+    :param code: Zipcode of the restaurant
+    :return: List of all the restuarants in the given zipcode
+    """
     return list(collection.find({"address.zipcode": code}))
 
 
 def restaurants_in_zip_code_with_grade(code: str, grade_requested: str):
+    """
+    :param code: Zipcode of the restaurant
+    :param grade_requested: All the restaurants' grade must be equal to the given value
+    :return: List of all the restuarants in the given zipcode that has all of its grade equal to the given value
+    """
     restaurants = []
     for restaurant in collection.find({"address.zipcode": code}):
         for grade in restaurant["grades"]:
@@ -68,6 +81,11 @@ def restaurants_in_zip_code_with_grade(code: str, grade_requested: str):
 
 
 def restaurants_in_zip_code_with_score_below(code: str, score_requested: int):
+    """
+    :param code: Zipcode of the restaurant
+    :param score_requested: All the restaurant's scores must be below this value
+    :return: List of all the restaurants in the given zipcode with all its grades below the given value
+    """
     restaurants = []
     for restaurant in collection.find({"address.zipcode": code}):
         for grade in restaurant["grades"]:
@@ -78,7 +96,10 @@ def restaurants_in_zip_code_with_score_below(code: str, score_requested: int):
     return restaurants
 
 
-def restaurants_with_improving_score():
+def restaurants_with_improving_score() -> list:
+    """
+    :return: List of all the restaurants with scores that are greater than or equal to its previous grade if available
+    """
     restaurants = []
     for restaurant in collection.find():
         previous = -1
@@ -100,10 +121,10 @@ print_header("Restaurants in zipcode 10282 (stuyvesant zipcode) (2)")
 pprint.pprint(restaurants_in_zip_code("10282")[0:2])  # get first two so we don't spam the terminal
 
 print_header("Restaurants in zipcode 10282 (stuyvesant zipcode) with only grade A (2)")
-pprint.pprint(restaurants_in_zip_code_with_grade("10282", "A")[0:2])
+pprint.pprint(restaurants_in_zip_code_with_grade("10282", "A")[0:2])  # get first two so we don't spam the terminal
 
 print_header("Restaurants in zipcode 10282 (stuyvesant zipcode) with only grade less than 10 (2)")
-pprint.pprint(restaurants_in_zip_code_with_score_below("10282", 10)[0:2])
+pprint.pprint(restaurants_in_zip_code_with_score_below("10282", 10)[0:2])  # get first two so we don't spam the terminal
 
 print_header("Restaurants with improving scores or consistent (3)")
-pprint.pprint(restaurants_with_improving_score()[0:3])
+pprint.pprint(restaurants_with_improving_score()[0:3])  # get first three so we don't spam the terminal
