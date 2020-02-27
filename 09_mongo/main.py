@@ -53,7 +53,7 @@ def restaurants_in_borough(borough: str):
 
 
 def restaurants_in_zip_code(code: str):
-    return list(collection.find({"address.zipcode": code, "date.grade": "A"}))
+    return list(collection.find({"address.zipcode": code}))
 
 
 def restaurants_in_zip_code_with_grade(code: str, grade_requested: str):
