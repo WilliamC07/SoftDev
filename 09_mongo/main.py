@@ -48,7 +48,7 @@ def print_header(header: str):
     print("-----")
 
 
-def restaurants_in_borough(borough: str):
+def restaurants_in_borough(borough: str) -> list:
     """
     :param borough: Borough of the restaurant
     :return: List of all the restuarants in the given borough
@@ -56,7 +56,7 @@ def restaurants_in_borough(borough: str):
     return list(collection.find({"borough": borough.capitalize()}))
 
 
-def restaurants_in_zip_code(code: str):
+def restaurants_in_zip_code(code: str) -> list:
     """
     :param code: Zipcode of the restaurant
     :return: List of all the restuarants in the given zipcode
@@ -64,7 +64,7 @@ def restaurants_in_zip_code(code: str):
     return list(collection.find({"address.zipcode": code}))
 
 
-def restaurants_in_zip_code_with_grade(code: str, grade_requested: str):
+def restaurants_in_zip_code_with_grade(code: str, grade_requested: str) -> list:
     """
     :param code: Zipcode of the restaurant
     :param grade_requested: All the restaurants' grade must be equal to the given value
@@ -80,7 +80,7 @@ def restaurants_in_zip_code_with_grade(code: str, grade_requested: str):
     return restaurants
 
 
-def restaurants_in_zip_code_with_score_below(code: str, score_requested: int):
+def restaurants_in_zip_code_with_score_below(code: str, score_requested: int) -> list:
     """
     :param code: Zipcode of the restaurant
     :param score_requested: All the restaurant's scores must be below this value
