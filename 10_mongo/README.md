@@ -6,3 +6,7 @@ https://developer.mapquest.com/plan_purchase/steps/business_edition/business_edi
 
 Dataset json:
 https://data.nasa.gov/resource/y77d-th95.json
+
+## How to use
+1. Run initialize ```python3 initialize.py```
+2. Run main ```python3 main.py```
