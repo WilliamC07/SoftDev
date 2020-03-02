@@ -13,7 +13,7 @@ with open("data.json") as data_file:
 # Turn mass into floating point for comparison
 cleaned_data = []
 for entry in entries:
-    # We need mass and classification
+    # We need mass, classification, and location where meteorite fell
     if "mass" not in entry.keys() or entry["recclass"] == "Unknown" or "geolocation" not in entry.keys():
         print(f"Skipped id={entry['id']}")
         continue
