@@ -5,17 +5,23 @@
 from pymongo import MongoClient
 import datetime
 from pprint import pprint
-
 """
 Name: Meteorite Landings
 Description of its contents: name of meteorite, classification, mass, found years after it fell or if someone saw it 
                              falling, year fell, location in latitude and longitude
 Host: https://data.nasa.gov/resource/y77d-th95.json
 
+Parsing-----------
+Parsing the data.json file
+Because the data is from NASA, it is relatively clean (no syntax error).
+We parsed the json file, creating a list of dictionaries. All entries are thrown out if it is
+missing either the mass, classification, or location where the meteorite fell.
+We then inserted the now serialized data into mongo.
+This is all done in the initialize.py file. It should only be called once.
+
+Data description sources-----------
 * "nametype" field documentation: https://data.nasa.gov/Space-Science/Meteorite-Landings/ak9y-cwf9
 * "fall" field documentation: https://www.researchgate.net/publication/326053427_Meteorite_Landings
-
-* We removed all entry (not reflected in .json) that do not have year fell and mass known
 
 Example entry
 {
