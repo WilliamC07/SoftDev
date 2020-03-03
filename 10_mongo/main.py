@@ -7,7 +7,7 @@ import datetime
 from pprint import pprint
 """
 Name: Meteorite Landings
-Description of its contents: name of meteorite, classification, mass, found years after it fell or if someone saw it 
+Description of its contents: name of meteorite, classification, mass, found years after it fell or if someone saw it
                              falling, year fell, location in latitude and longitude
 Host: https://data.nasa.gov/resource/y77d-th95.json
 
@@ -48,6 +48,7 @@ Example entry
 client = MongoClient('localhost', 27017)  # default mongo port is 27017
 db = client["tannedCows"]
 meteoriteLandings = db['meteoriteLandings']
+commonLocations = db['commonLocations']
 
 def print_header(header: str):
     print("\n\n-----")
@@ -102,20 +103,21 @@ def meteorite_with_class_and_found_before_date(class_name: str, date: datetime.d
 def meteorite_fell_near(location: str):
     """
     Finds all the meteorite that fell near your area given the location. Error of margin is 25 degree distance sqrt(a**2 + b**2)
-    :param location: Location of where you are as string. Available values: "New York City"
+    :param location: Location of where you are as string. Available values: "New York City", "Chicago","Los Angeles","Boston","Paris","London","Madrid","Moscow","Dubai","Mumbai"
     :return:
     """
     output = []
-    given_longitude = -73.935242
-    given_latitude = 40.730610
+    given_longitude = commonLocations.find({"name": location})[0]['long']
+    given_latitude = commonLocations.find({"name": location})[0]['lat']
     for entry in meteoriteLandings.find({}):
-        pprint(entry)
+        #pprint(entry)
         entry_longitude, entry_latitude = entry["geolocation"]["coordinates"]
         entry_latitude = float(entry_latitude)
         entry_longitude = float(entry_longitude)
         if ((entry_longitude - given_longitude) ** 2 + (entry_latitude - given_latitude) ** 2) ** .5 < 25:
             output.append(entry)
 
+    pprint("DONE")
     return output
 
 
