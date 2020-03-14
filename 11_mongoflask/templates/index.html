@@ -1,10 +1,75 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="UTF-8">
-    <title>title</title>
-  </head>
-  <body>
-    {{ stuff }}
-  </body>
+    <title>Meteorites</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body class="container">
+    <h2> Meteorites </h2>
+    <p> This site can let you find meteorites based on date found, size, class, and location <br></p>
+    <b>Lists all the meteorites classified with class_name given.</b>
+    <form action="/meteorites-with-class" method="GET">
+        <select name="class_name">
+            {% for class_name in meteorite_classes %}
+            <option value="{{ class_name }}">
+                {{ class_name }}
+            </option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Submit">
+    </form>
+    <br>
+    <br>
+
+    <b>List of all the meteorites that were found (that means someone found it rather than someone saw it falling)</b>
+    <form action="\meteorites-found" method="GET">
+        <input type="submit" value="Submit"> <br>
+    </form>
+    <br>
+
+    <b>Lists all the meteorites classified with class_name given limited by given maximum mass.</b>
+    <form action="/meteorites-max" method="GET">
+        <select name="class_name">
+            {% for class_name in meteorite_classes %}
+            <option value="{{ class_name }}">
+                {{ class_name }}
+            </option>
+            {% endfor %}
+        </select>
+        <br>
+        <label>Maximum Mass in Grams:</label> <br>
+        <input type="number" name="max_mass"> <br>
+        <input type="submit" value="Submit"> <br>
+    </form>
+    <br>
+
+    <b>List of all meteorites of given class that fell before the given time</b>
+    <form action="/meteorites-date" method="GET">
+        <select name="class_name">
+            {% for class_name in meteorite_classes %}
+            <option value="{{ class_name }}">
+                {{ class_name }}
+            </option>
+            {% endfor %}
+        </select>
+        <br>
+        <input type="date" name="date"> <br>
+        <input type="submit" value="Submit"> <br>
+    </form>
+    <br>
+
+    <b>Finds all the meteorite that fell near your area given the location. Error of margin is 10 degree distance sqrt(a**2
+        + b**2)</b>
+    <form action="/meteorites-fell-near" method="GET">
+        <select name="location">
+            {% for location in locations %}
+            <option value="{{ location }}">
+                {{ location }}
+            </option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Submit"> <br>
+    </form>
+    </body>
 </html>
