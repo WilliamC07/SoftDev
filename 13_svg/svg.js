@@ -48,8 +48,6 @@ const createNewCircle = (cx, cy) => {
 };
 
 clearButton.addEventListener('click', () => {
-    points.length = 0;
-
     while(svg.hasChildNodes()){
         svg.removeChild(svg.firstChild);
     }
