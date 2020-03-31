@@ -31,9 +31,6 @@ const handleSecondClick = (e) => {
     // Make sure circle doesn't go out of bounds
     const [cx, cy] = [Math.random() * (canvasWidth - 2 * radius) + radius, Math.random() * (canvasWidth - 2 * radius) + radius];
     createNewCircle(cx, cy);
-
-    // Stop from making more circles and clicking circle underneath
-    e.stopPropagation();
 };
 
 const createNewCircle = (cx, cy) => {
