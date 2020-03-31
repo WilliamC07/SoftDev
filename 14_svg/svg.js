@@ -1,5 +1,5 @@
 /*
-William Cao
+William Cao && Eric Lau Team William Eats Cows
 SoftDev pd1
 K14: Ask Circles [Change || Die] While Moving, etc.
 2020-04-01
