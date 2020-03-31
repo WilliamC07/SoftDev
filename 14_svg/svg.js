@@ -1,7 +1,7 @@
 /*
-William Cao && Eric Lau Team William Eats Cows
+William Cao && Eric Lau -- William Eats Cows
 SoftDev pd1
-K14: Ask Circles [Change || Die] While Moving, etc.
+K14 -- Ask Circles [Change || Die] While Moving, etc.
 2020-04-01
  */
 
@@ -16,6 +16,8 @@ let keyCounter = 0;
 // Value: [[x, y], [velocityX, velocityY]]
 const circleMovementData = {};
 let animationID;
+
+let extra = false;
 
 svg.addEventListener('click', (e) => {
     createNewCircle(e.offsetX, e.offsetY);
@@ -32,7 +34,15 @@ const handleFirstClick = (e) => {
 };
 
 const handleSecondClick = (e) => {
+
     // Only remove what the event listener is attached to
+    const circle = e.currentTarget;
+    if(extra) {
+        let r = Number(circle.getAttribute("r"));
+        while(r > 0) {
+            circle.setAttribute("r", String(r--));
+        }
+    }
     svg.removeChild(e.currentTarget);
 
     // Make sure circle doesn't go out of bounds
@@ -68,12 +78,18 @@ const handleMovement = () => {
         circle.setAttribute("cx", String(position[0]));
         circle.setAttribute("cy", String(position[1]));
 
+        const radius = Number(circle.getAttribute("r"));
+
         // Flip ball direction to stop going off screen
         if(position[0] <= radius || position[0] >= canvasWidth - radius){
             velocity[0] *= -1;
         }
         if(position[1] <= radius || position[1] >= canvasHeight - radius){
             velocity[1] *= -1;
+        }
+
+        if(extra) {
+            handleExtra(circle);
         }
     }
 
@@ -84,6 +100,7 @@ document.getElementById("clear").addEventListener('click', () => {
     while(svg.hasChildNodes()){
         svg.removeChild(svg.firstChild);
     }
+    extra = false;
 });
 
 document.getElementById("move").addEventListener("click", () => {
@@ -97,9 +114,26 @@ document.getElementById("stop").addEventListener("click", () => {
     animationID = undefined;
 });
 
+document.getElementById("extra").addEventListener("click", () => {
+    extra = !extra;
+});
+
 
 // Helper functions
 const randomBoolean = () => {
     // random is [0, 1)
     return Math.random() >= .5;
 };
+
+const handleExtra = (circle) => {
+    const position = circleMovementData[circle.getAttribute(keyAttribute)][0];
+    if(circle.getAttribute("fill") != "#00FFFF") {
+        circle.setAttribute("fill", `rgb(${position[0]}, ${position[1]}, 200)`);
+    } else {
+        let radius = Number(circle.getAttribute("r"));
+        if(radius < 60) {
+            radius++;
+        }
+        circle.setAttribute("r", String(radius));
+    }
+}
