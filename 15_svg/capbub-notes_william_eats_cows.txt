@@ -1,0 +1,58 @@
+v1
+Before:
+- We think clicking on the names will alert the user with the name clicked on (that's it).
+
+After:
+- Our predictions was correct
+
+v2
+Before:
+- Q: When user clicks on a cell, in what order will the pop-ups appear?
+    - We think that the alert will print out in this order:
+        1. The name of the star wars character (table data innerHTML)
+        2. The html of the table row that has the star wars character
+        3. The html of the table will be printed
+
+After:
+- We were correct
+- Chrome version 80 inserts <tbody> into our html, so this was shown in the alert even though the original html file
+doesn't have it.
+
+v3
+Before:
+- Q: What will happen when next line is uncommented? (line = "e.stopPropagation();")
+    - It will prevent bubbling, so only the name of the character will be alerted
+- Q: When user clicks on a cell, in what order will the pop-ups appear?
+    - We don't know what "true" as third argument to addEventListener does
+    - We are going to guess the print order will be "table data" then "table row" then "table".
+
+After:
+- We searched up on mozilla documentation, and it appears:
+    - true: event listener is run from the root of the document downwards (propagation)
+    - false: event listener is run from deeply nested to document root (bubbling)
+- Alert order (w/o e.stopPropagation())
+    1. The table html since event propagation is on
+    2. Name of the character we clicked on since event bubbling is on default
+    3. Table row containing the character since event bubbling is on default and this is one level above name of
+    character
+    - It looks like event propagation is prioritized over bubbling. (addEventListener with 3rd parameter "true" runs
+    first then addEventListener w/o "true" runs)
+- Alert order (w/ e.stopPropagation())
+    - Only the table children will be printed since user click will not propagate down the DOM
+
+v4
+Before:
+- Q: What will happen when next line is uncommented? (line = "e.stopPropagation();")
+    - Only the table HTML will be alerted. This is because event propagation is on and e.stopPropagation() will stop
+    click from registering down the DOM
+- Q: Does the order in which the event listeners are attached matter?
+    - No. Order does not matter for attaching event listeners. HTML only cares about hierarchy and reordering does not
+    change the hierarchy.
+
+After:
+- Q: What will happen when next line is uncommented? (line = "e.stopPropagation();")
+    - Only the table HTML is alerted.
+- Q: Does the order in which the event listeners are attached matter?
+    - Order does not appear to matter.
+
+Sources: https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener
