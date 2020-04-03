@@ -62,9 +62,9 @@ OBSERVATIONS
 
 let data = [4, 8, 15, 16, 23, 42] returns nothing
 
-let chart = d3.select(".chart") returns nothing
+let chart = d3.select(".chart") returns selection to html element
 
-let bar = chart.selectAll("div") returns nothing
+let bar = chart.selectAll("div") returns selection to all html elements of div
 
 let barUpdate = bar.data(data) returns nothing
     barUpdate stores data in barUpdate._enter array
