@@ -9,18 +9,42 @@
   <title>K16 Redo</title>
   <script src="http://d3js.org/d3.v5.min.js" charset="utf-8"></script>
   <style>
+    body {
+      background-color: black;
+    }
+
     .chart div {
       font: 10px sans-serif;
       background-color: steelblue;
       text-align: right;
       padding: 3px;
       margin: 1px;
-      color: white;
+      color: steelblue;
     }
   </style>
 </html>
 <body>
   <div class="chart"></div>
+  <script>
+    // make the background white
+    d3.select("body").transition()
+      .duration(2000)  // ms duration of animation
+      .style("background-color", "orange");
+
+
+    var data = [4, 8, 15, 16, 23, 42];
+    var chart = d3.select(".chart");
+    var bar = chart.selectAll("div");
+    var barUpdate = bar.data(data);
+    var barEnter = barUpdate.enter().append("div");
+    barEnter.transition()
+      .duration(2000)
+      .delay((d, i) => i * 10) // d = data, i = index of element
+      .style("width", (d) => d * 10 + "px")
+      .style("background-color", "yellow")
+      .style("color", "black");
+    barEnter.text((d) => d);
+  </script>
 </body>
 
 <!--
