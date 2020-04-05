@@ -39,7 +39,7 @@
     var barEnter = barUpdate.enter().append("div");
     barEnter.transition()
       .duration(2000)
-      .delay((d, i) => i * 10) // d = data, i = index of element
+      .delay((d, i) => i * 500) // d = data, i = index of element
       .style("width", (d) => d * 10 + "px")
       .style("background-color", "yellow")
       .style("color", "black");
