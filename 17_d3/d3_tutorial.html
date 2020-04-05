@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>D3 Tutorial</title>
+        <script src="http://d3js.org/d3.v5.min.js" charset="utf-8"></script>
+    </head>
+    <body>
+        <div id="histogram">
+
+        </div>
+        <script>
+            var data = [4, 8, 15, 16, 23, 42];
+            // I couldn't find an easy way to create and element then insert into document like we did in class
+            // this seems like the best way
+            d3.select("body")
+                .insert("p")
+                .html("data: " + data.join(", "));
+            // *d3 has a "correct" way to indent d3 selectors and this is not it*
+            var table = d3.select("body")
+                .insert("div")
+                .style("font", "10px sans-serif")
+                .style("text-align", "right")
+                .style("color", "white");
+            
+            table.selectAll("div")
+                .data(data)
+                /*                    
+                    <D3 SELECTOR>
+                    .data(data)
+                    .join(
+                        enter => enter.append("circle"),
+                        update => update,
+                        exit => exit.remove())
+                    );
+                    // selection.join(enter[, update][, exit])
+                    // so "update" and "exit" are optional parameter
+                */
+                .join(
+                    enter => {
+                        enter.append("div")
+                            .style("background", "steelblue")
+                            .style("padding", "3px")
+                            .style("margin", "1px")
+                            .style("width", d => `${d * 10}px`)
+                            .text(d => d);
+                    }
+                );
+
+            // histogram
+            // https://github.com/d3/d3-array/blob/v1.2.4/README.md#histogram
+            // https://www.d3-graph-gallery.com/graph/histogram_basic.html
+            var values = new Array(50);
+            var randomValues = d3.randomNormal(0.5, .1); // bell curve centered on .5, sigma = .1
+            for(var i = 0; i < values.length; i++){
+                values[i] = 10 + Math.floor(randomValues() * 100);
+            }
+            var histogram = d3.histogram()
+                .domain([10, 110])
+                .thresholds(10); // each bar is based on tens place (0 to 9)
+            const bin = histogram(values);
+            const histogram_dom = d3.select(".histogram")
+                .data(bin)
+                .join(
+                    enter => {
+                        enter.append("div")
+                        .style("background", "steelblue")
+                            .style("padding", "3px")
+                            .style("margin", "1px")
+                            .style("width", d => {
+                                return `${d.length * 5}px`;
+                            })
+                            .style("white-space", "nowrap")
+                            .style("height", "30px")
+                            .text(d => {
+                                // range for each bar in the histogram is from d["x0"] to d["x1"]
+                                return `${d["x0"]} to ${d["x1"]}: ${d.length}`;
+                            });
+                    }
+                )
+
+        </script>
+    </body>
+</html>
+
+<!--
+    https://observablehq.com/@d3/learn-d3-by-example?collection=@d3/learn-d3
+
+    Observations/notes:
+    - Clicking on any of the hexagonal data image will open it in an Observable (d3js.org)
+    - The tutorial uses "import", but this requires us to npm install d3 (outside of observable notebook)
+    - Float64Array -- special array that holds certain data type. In this case, it holds C double
+    - d3.scaleLinear notes are found in the d3_n00b.html
+    - On MacOS if you were to edit a cell with "FileAttachment()" and press "COMMAND + SHIFT + U" you can upload a file
+    - https://observablehq.com/@d3/d3-random
+        - https://github.com/d3/d3-random/blob/v1.1.2/README.md#api-reference
+        - d3.randomUniform(min, max) -- uniform sample of data from [min, max)
+        - d3.randomNormal(mu, sigma) -- creates a bell curve of values with mu = mean, sigma = standard deviation. Values are between [0, 1)
+        - The other ones are some more advanced stat stuff
+    - 
+
+
+-->
