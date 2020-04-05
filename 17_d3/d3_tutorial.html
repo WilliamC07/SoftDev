@@ -46,6 +46,10 @@
                     }
                 );
 
+            /**
+                COULDN'T FIND OUT HOW TO MAKE THE HISTOGRAM LIKE THEY DID IN THE OBSERVABLE, SO WE DID OUR BEST
+            */
+
             // histogram
             // https://github.com/d3/d3-array/blob/v1.2.4/README.md#histogram
             // https://www.d3-graph-gallery.com/graph/histogram_basic.html
@@ -55,8 +59,11 @@
                 values[i] = 10 + Math.floor(randomValues() * 100);
             }
             var histogram = d3.histogram()
+                // range of data we can show inclusive both
                 .domain([10, 110])
-                .thresholds(10); // each bar is based on tens place (0 to 9)
+                // how many digits are in each bin (each bar)
+                // so it is: [10, 20], [20, 30], etc...
+                .thresholds(10); 
             const bin = histogram(values);
             const histogram_dom = d3.select(".histogram")
                 .data(bin)
@@ -69,8 +76,10 @@
                             .style("width", d => {
                                 return `${d.length * 5}px`;
                             })
+                            // force text to show even if bar graph is showing 0
                             .style("white-space", "nowrap")
                             .style("height", "30px")
+                            // format text as "<start> to <end>: <amount>"
                             .text(d => {
                                 // range for each bar in the histogram is from d["x0"] to d["x1"]
                                 return `${d["x0"]} to ${d["x1"]}: ${d.length}`;
