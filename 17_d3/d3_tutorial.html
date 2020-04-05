@@ -5,9 +5,6 @@
         <script src="http://d3js.org/d3.v5.min.js" charset="utf-8"></script>
     </head>
     <body>
-        <div id="histogram">
-
-        </div>
         <script>
             var data = [4, 8, 15, 16, 23, 42];
             // I couldn't find an easy way to create and element then insert into document like we did in class
@@ -65,7 +62,8 @@
                 // so it is: [10, 20], [20, 30], etc...
                 .thresholds(10); 
             const bin = histogram(values);
-            const histogram_dom = d3.select(".histogram")
+            // insert into body
+            const histogram_dom = d3.select("body")
                 .data(bin)
                 .join(
                     enter => {
