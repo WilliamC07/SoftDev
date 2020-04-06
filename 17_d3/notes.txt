@@ -10,8 +10,8 @@ d3.selectAll(".chart div")
 // so "update" and "exit" are optional parameter
 
 const scale = d3.scaleLinear()
-  .domain([start, end]) // the data domain to display range
-  .range([start, end])  // the range for seeing the data (pixel width for example for bar chart)
+  .domain([start, end]) // the data domain to display [smallestValue, largestValue]
+  .range([start, end])  // the screen space for seeing the data (pixel width for example for bar chart)
 
 // to use it, we can do
 d3.selectAll(".chart div")
@@ -24,6 +24,9 @@ d3.selectAll(".chart div")
 - Clicking on any of the hexagonal data image will open it in an Observable (d3js.org)
     - The tutorial uses "import", but this requires us to npm install d3 (outside of observable notebook)
     - Float64Array -- special array that holds certain data type. In this case, it holds C double
+        - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays
+        - Used for storing binary data
+        - Popular usage: websocket, webassembly
     - d3.scaleLinear notes are found in the d3_n00b.html
     - On MacOS if you were to edit a cell with "FileAttachment()" and press "COMMAND + SHIFT + U" you can upload a file
     - https://observablehq.com/@d3/d3-random
