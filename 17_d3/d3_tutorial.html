@@ -12,43 +12,6 @@
     </head>
     <body>
         <script>
-            var data = [4, 8, 15, 16, 23, 42];
-            // I couldn't find an easy way to create and element then insert into document like we did in class
-            // this seems like the best way
-            d3.select("body")
-                .insert("p")
-                .html("data: " + data.join(", "));
-            // *d3 has a "correct" way to indent d3 selectors and this is not it*
-            var table = d3.select("body")
-                .insert("div")
-                .style("font", "10px sans-serif")
-                .style("text-align", "right")
-                .style("color", "white");
-            
-            table.selectAll("div")
-                .data(data)
-                /*                    
-                    <D3 SELECTOR>
-                    .data(data)
-                    .join(
-                        enter => enter.append("circle"),
-                        update => update,
-                        exit => exit.remove())
-                    );
-                    // selection.join(enter[, update][, exit])
-                    // so "update" and "exit" are optional parameter
-                */
-                .join(
-                    enter => {
-                        enter.append("div")
-                            .style("background", "steelblue")
-                            .style("padding", "3px")
-                            .style("margin", "1px")
-                            .style("width", d => `${d * 10}px`)
-                            .text(d => d);
-                    }
-                );
-
             /**
                 COULDN'T FIND OUT HOW TO MAKE THE HISTOGRAM LIKE THEY DID IN THE OBSERVABLE, SO WE DID OUR BEST
             */
