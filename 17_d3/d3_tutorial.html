@@ -69,7 +69,7 @@
                 .thresholds(10); 
             const bin = histogram(values);
             // insert into body
-            const histogram_dom = d3.select("body")
+            d3.select("body")
                 .data(bin)
                 .join(
                     enter => {
@@ -90,26 +90,6 @@
                             });
                     }
                 )
-
         </script>
     </body>
 </html>
-
-<!--
-    https://observablehq.com/@d3/learn-d3-by-example?collection=@d3/learn-d3
-
-    Observations/notes:
-    - Clicking on any of the hexagonal data image will open it in an Observable (d3js.org)
-    - The tutorial uses "import", but this requires us to npm install d3 (outside of observable notebook)
-    - Float64Array -- special array that holds certain data type. In this case, it holds C double
-    - d3.scaleLinear notes are found in the d3_n00b.html
-    - On MacOS if you were to edit a cell with "FileAttachment()" and press "COMMAND + SHIFT + U" you can upload a file
-    - https://observablehq.com/@d3/d3-random
-        - https://github.com/d3/d3-random/blob/v1.1.2/README.md#api-reference
-        - d3.randomUniform(min, max) -- uniform sample of data from [min, max)
-        - d3.randomNormal(mu, sigma) -- creates a bell curve of values with mu = mean, sigma = standard deviation. Values are between [0, 1)
-        - The other ones are some more advanced stat stuff
-    - 
-
-
--->

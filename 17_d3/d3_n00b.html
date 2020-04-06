@@ -85,26 +85,4 @@ barEnter.text(function(d) { return d; });
 
 // API reference 
 // https://github.com/d3/d3-selection/blob/v1.4.1/README.md#selection_join
-
-// We should be using "let" and "const" instead of var
-// if we were to do something like
-d3.selectAll(".chart div")
-  .data(data)
-  .join(
-    enter => enter.append("circle"),
-    update => update,
-    exit => exit.remove())
-  );
-// selection.join(enter[, update][, exit])
-// so "update" and "exit" are optional parameter
-
-const scale = d3.scaleLinear()
-  .domain([start, end]) // the data domain to display range
-  .range([start, end])  // the range for seeing the data (pixel width for example for bar chart)
-
-// to use it, we can do
-d3.selectAll(".chart div")
-  .data(data)
-  .join("div")
-  .style("width", d => `${scale(d)}px`})
 -->

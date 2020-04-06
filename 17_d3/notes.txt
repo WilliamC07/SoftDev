@@ -1,0 +1,38 @@
+// if we were to do something like
+d3.selectAll(".chart div")
+  .data(data)
+  .join(
+    enter => enter.append("circle"),
+    update => update,
+    exit => exit.remove())
+  );
+// selection.join(enter[, update][, exit])
+// so "update" and "exit" are optional parameter
+
+const scale = d3.scaleLinear()
+  .domain([start, end]) // the data domain to display range
+  .range([start, end])  // the range for seeing the data (pixel width for example for bar chart)
+
+// to use it, we can do
+d3.selectAll(".chart div")
+  .data(data)
+  .join("div")
+  .style("width", d => `${scale(d)}px`})
+
+--By example--
+- https://observablehq.com/@d3/learn-d3-by-example?collection=@d3/learn-d3
+- Clicking on any of the hexagonal data image will open it in an Observable (d3js.org)
+    - The tutorial uses "import", but this requires us to npm install d3 (outside of observable notebook)
+    - Float64Array -- special array that holds certain data type. In this case, it holds C double
+    - d3.scaleLinear notes are found in the d3_n00b.html
+    - On MacOS if you were to edit a cell with "FileAttachment()" and press "COMMAND + SHIFT + U" you can upload a file
+    - https://observablehq.com/@d3/d3-random
+        - https://github.com/d3/d3-random/blob/v1.1.2/README.md#api-reference
+        - d3.randomUniform(min, max) -- uniform sample of data from [min, max)
+        - d3.randomNormal(mu, sigma) -- creates a bell curve of values with mu = mean, sigma = standard deviation. Values are between [0, 1)
+        - The other ones are some more advanced stat stuff
+- "with" keyword is not suggested to be used in production code, but its purpose is to modify the object
+    import {chart as chart1} with {values as data} from "@d3/histogram"
+            ^Modifying the chart to have values inserted into data attribute
+- On our HTML, we can't use the code given in the Observable, we would have to use d3.histogram. Example code using it
+is located in d3_tutorial.html
