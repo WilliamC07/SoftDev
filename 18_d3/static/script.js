@@ -8,17 +8,26 @@
 // References
 // https://bl.ocks.org/d3noob/402dd382a51a4f6eea487f9a35566de0
 
+// size of the graph
 const width = 800;
 const height = 500;
+
+// animation purposes
 const animationDuration = 30; // in seconds
 const updatesPerSecond = 20;
+
+// the data to be shown to the user.
 let data;
+
+// keep track of the animation
+let intervalID = null;
 
 // Scaling for graph
 const scaleX = d3.scaleTime().range([0, width]);
 // [height, 0] so that (0,0) is located bottom left
 const scaleY = d3.scaleLinear().range([height, 0]);
 
+// used to draw the svg line
 const line = d3.line()
     .x(d => scaleX(d.date))
     .y(d => scaleY(d.count));
@@ -27,7 +36,7 @@ const graph = d3.select("#container")
     .append("svg")
     .attr("width", width + 300)
     .attr("height", height + 300)
-    .append("g")
+    .append("g")  // graph will be located inside of this (so we can see the y-axis description)
     .attr("transform", "translate(100, 100)");
 
 /**
@@ -87,7 +96,6 @@ function setScaling(data, scaleX, scaleY){
     for(const entry of data){
         maxInitialClaims = Math.max(maxInitialClaims, entry.count);
     }
-    console.log(endDate, maxInitialClaims);
     // set the max X and max Y value for graph
     scaleX.domain([startDate, endDate]);
     scaleY.domain([0, maxInitialClaims]);
@@ -119,12 +127,27 @@ fetch("/data")
 
 d3.select("#start")
     .on("click", () => {
-        setInterval(() => {
-            // Need to use Math.min to check bounds
-            updateGraph(data.slice(0, Math.min(data.length - 1, currentIndex + partitionAmount)));
-            currentIndex += partitionAmount;
+        if(intervalID == null){
+            intervalID = setInterval(() => {
+                // Need to use Math.min to check bounds
+                updateGraph(data.slice(0, Math.min(data.length - 1, currentIndex + partitionAmount)));
+                currentIndex += partitionAmount;
 
-            // end this interval once we got all data to screen
-            if(currentIndex >= data.length - 1) return;
-        }, animationDuration / 1000 * updatesPerSecond + 1000 / updatesPerSecond);
+                // end this interval once we got all data to screen
+                if(currentIndex >= data.length - 1) return;
+            }, animationDuration / 1000 * updatesPerSecond + 1000 / updatesPerSecond);
+        }
+    });
+d3.select("#end")
+    .on("click", () => {
+        if(intervalID != null){
+            // stop animation if there was one happening
+            clearInterval(intervalID);
+            intervalID = null;
+        }
+
+        currentIndex = 0;
+        partitionAmount = Math.floor(data.length / (animationDuration * updatesPerSecond));
+        updateGraph(data.slice(currentIndex, partitionAmount));
+        currentIndex += partitionAmount;
     });
