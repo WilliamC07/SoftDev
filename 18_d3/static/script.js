@@ -11,7 +11,7 @@
 const width = 800;
 const height = 500;
 const animationDuration = 30; // in seconds
-const updatesPerSecond = 2;
+const updatesPerSecond = 20;
 let data;
 
 // Scaling for graph
@@ -95,7 +95,6 @@ function setScaling(data, scaleX, scaleY){
 
 let partitionAmount;
 let currentIndex = 0;
-
 fetch("/data")
     .then((response) => response.json())
     .then((entries) => {
