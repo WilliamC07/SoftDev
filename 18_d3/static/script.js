@@ -1,8 +1,10 @@
-var data = [
-    {
-        date: "1967-01-07",
-        count: 208000
-    }
-];
+fetch("/data")
+    .then((response) => response.json())
+    .then((data) => {
+        console.log(data);
+    })
+    .catch((e) => {
+        alert(e);
+    });
 
 console.log("works");
