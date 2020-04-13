@@ -1,3 +1,11 @@
+"""
+
+William Cao, Henry Liu, Ethan Chen -- HEW
+SoftDev pd1
+K18 -- Come Up For Air
+2020-04-21
+
+"""
 import csv
 from flask import Flask, render_template, jsonify
 app = Flask(__name__)
@@ -26,7 +34,7 @@ def data():
         # skip the first row, which is the header row
         next(reader)
         for entry in reader:
-            payload.append({'date': entry[0], 'count': entry[1]})
+            payload.append({'date': entry[0], 'count': int(entry[1])})
 
     return jsonify(payload)
 
