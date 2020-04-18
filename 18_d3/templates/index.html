@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <title>title</title>
   <style>
+    * {
+      margin: 0;
+    }
+
     #container {
       display: flex;
       justify-content: center;
@@ -24,7 +28,7 @@
   </style>
 </head>
 <body>
-<h1>Initial Claims</h1>
+<h1>Initial Claims (USA) <a href="https://fred.stlouisfed.org/series/ICSA" target="_blank">Source</a></h1>
 <p>
   William Cao, Henry Liu, Ethan Chen -- HEW <br/>
   SoftDev pd1 <br/>
@@ -32,8 +36,13 @@
   2020-04-21 <br/>
 </p>
 <button id="render" disabled>Please wait for data to finish loading</button>
-<button id="start">Start!</button>
-<button id="end">Reset</button>
+<h4 id="displayed-year">Looking from ____ to ____</h4>
+<button id="next-year">View next year</button>
+<small>It overlaps then moves for comparison of previous year</small>
+<h4>Animation</h4>
+<button id="start">Start Animation!</button>
+<h4>Control</h4>
+<button id="end">Reset Graph</button>
 <div id="container"></div>
 
 <script src="http://d3js.org/d3.v5.min.js" charset="utf-8"></script>
