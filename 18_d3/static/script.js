@@ -115,10 +115,9 @@ fetch("/data")
         }
         // update global variable
         data = entries;
-
-        partitionAmount = Math.floor(data.length / (animationDuration * updatesPerSecond));
-        drawGraph(data.slice(currentIndex, partitionAmount));
-        currentIndex += partitionAmount;
+        d3.select("#render")
+            .attr('disabled', null)
+            .html("Render");
     })
     .catch((e) => {
         alert("Failed to get data from the server. See console for more information");
@@ -149,5 +148,11 @@ d3.select("#end")
         currentIndex = 0;
         partitionAmount = Math.floor(data.length / (animationDuration * updatesPerSecond));
         updateGraph(data.slice(currentIndex, partitionAmount));
+        currentIndex += partitionAmount;
+    });
+d3.select("#render")
+    .on("click", () => {
+        partitionAmount = Math.floor(data.length / (animationDuration * updatesPerSecond));
+        drawGraph(data.slice(currentIndex, partitionAmount));
         currentIndex += partitionAmount;
     });
